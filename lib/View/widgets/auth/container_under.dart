@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/text_utils.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 
@@ -16,7 +17,7 @@ class ContainerUnder extends StatelessWidget {
       width: MediaQuery.of(context).size.width * .9,
       height: 80,
       decoration: BoxDecoration(
-        color: secondalymainColor,
+        color: Get.isDarkMode ?mainColor:greenColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

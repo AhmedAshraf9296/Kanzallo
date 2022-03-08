@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:kanzalloshop/View/screens/auth/forgot_password_screen.dart';
 import 'package:kanzalloshop/View/screens/auth/login_screen.dart';
 import 'package:kanzalloshop/View/screens/auth/signup_screen.dart';
 import 'package:kanzalloshop/View/screens/welcome_screen.dart';
+import 'package:kanzalloshop/logic/bindings/auth_binding.dart';
 
 class AppRoutes {
   // initialRoute
@@ -14,8 +16,9 @@ class AppRoutes {
 
   static final routes = [
     GetPage(name: Routes.welcomeScreen, page: () => const WelcomeScreen()),
-    GetPage(name: Routes.loginScreen, page: () => const LoginScreen()),
-    GetPage(name: Routes.signUpScreen, page: () =>   SignUpScreen()),
+    GetPage(name: Routes.loginScreen, page: () =>  LoginScreen(),binding: AuthBinding()),
+    GetPage(name: Routes.signUpScreen, page: () =>   SignUpScreen(),binding: AuthBinding()),
+    GetPage(name: Routes.forgotPasswordScreen, page: () =>    ForgotPasswordScreen(),binding: AuthBinding()),
   ];
 }
 
@@ -23,4 +26,5 @@ class Routes {
   static const welcomeScreen = '/welcomeSreen';
   static const loginScreen = '/loginScreen';
   static const signUpScreen = '/signUpScreen';
+  static const forgotPasswordScreen = '/forgotPassword';
 }
