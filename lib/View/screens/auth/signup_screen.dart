@@ -12,7 +12,6 @@ import '../../widgets/auth/check_widget.dart';
 import '../../widgets/auth/container_under.dart';
 
 class SignUpScreen extends StatelessWidget {
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -113,8 +112,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         GetBuilder<AuthController>(builder: (_) {
                           return AuthTextFormField(passwordController,
-                              controller.isVisibilty?false:true,
-                              (value) {
+                              controller.isVisibilty ? false : true, (value) {
                             if (value.toString().length < 6) {
                               return "Password should be longer than or equal to 6 characters";
                             } else {
@@ -150,11 +148,27 @@ class SignUpScreen extends StatelessWidget {
                         const SizedBox(
                           height: 50,
                         ),
-                         CheckWidget(),
+                        CheckWidget(),
                         const SizedBox(
                           height: 50,
                         ),
-                        AuthButton("SIGN UP", () {}),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return AuthButton(
+                            "SIGN UP",
+                            () {
+                              if (formKey.currentState!.validate()) {
+                                String name = nameController.text.trim();
+                                String email = emailController.text.trim();
+                                String password =
+                                    passwordController.text.trim();
+                                controller.signUpUsingFirebase(
+                                    userName: name,
+                                    email: email,
+                                    password: password);
+                              }
+                            },
+                          );
+                        })
                       ],
                     ),
                   ),
