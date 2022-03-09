@@ -136,7 +136,16 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(
                           height: 50,
                         ),
-                        AuthButton("LOG IN", () {}),
+                        GetBuilder<AuthController>(builder: (_) {
+                          return AuthButton("LOG IN", () {
+                            if (formKey.currentState!.validate()) {
+                              String email = emailController.text.trim();
+                              String password = passwordController.text;
+                              controller.logInUsingFirebase(
+                                  email: email, password: password);
+                            }
+                          });
+                        }),
                         const SizedBox(
                           height: 20,
                         ),
@@ -153,21 +162,29 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Image.asset(
-                                "assets/images/google.png",
-                              ),
-                            ),
+                            GetBuilder<AuthController>(builder: (_) {
+                              return InkWell(
+                                onTap: () {
+                                  controller.googleSignUpUsingFirebase();
+                                },
+                                child: Image.asset(
+                                  "assets/images/google.png",
+                                ),
+                              );
+                            }),
                             const SizedBox(
                               width: 20,
                             ),
-                            InkWell(
-                              onTap: () {},
-                              child: Image.asset(
-                                "assets/images/facebook.png",
-                              ),
-                            ),
+                            GetBuilder<AuthController>(builder: (_) {
+                              return InkWell(
+                                onTap: () {
+                                  controller.facebookSignUpUsingFirebase();
+                                },
+                                child: Image.asset(
+                                  "assets/images/facebook.png",
+                                ),
+                              );
+                            })
                           ],
                         ),
                       ],

@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/auth/auth_button.dart';
 import 'package:kanzalloshop/View/widgets/auth/auth_text_form_field.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
+import 'package:kanzalloshop/logic/Controller/auth_controller.dart';
 import 'package:kanzalloshop/utils/my_string.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({Key? key}) : super(key: key);
-  final formKey = GlobalKey();
+  final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
+  final controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                AuthButton("SEND", () {}),
+                GetBuilder<AuthController>(builder: (_) {
+                  return AuthButton("SEND", () {
+                    if (formKey.currentState!.validate()) {
+                      String email = emailController.text.trim();
+                      controller.resetPasswordFirebase(email);
+                    }
+                  });
+                })
               ],
             ),
           ),

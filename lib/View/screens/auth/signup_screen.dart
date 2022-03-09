@@ -156,6 +156,15 @@ class SignUpScreen extends StatelessWidget {
                           return AuthButton(
                             "SIGN UP",
                             () {
+                              if (controller.isCheckBox == false) {
+                                return Get.snackbar(
+                                  '',
+                                  'Please , Accept terms & conditions',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.green.shade700,
+                                  colorText: Colors.white,
+                                );
+                              }
                               if (formKey.currentState!.validate()) {
                                 String name = nameController.text.trim();
                                 String email = emailController.text.trim();
@@ -165,6 +174,7 @@ class SignUpScreen extends StatelessWidget {
                                     userName: name,
                                     email: email,
                                     password: password);
+                                controller.isCheckBox == true;
                               }
                             },
                           );
