@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kanzalloshop/Model/facebook_model.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 
 import '../../routes/routes.dart';
@@ -14,6 +16,9 @@ class AuthController extends GetxController {
   var displayUserName = '';
   var displayUserImage = '';
   var googleSignIn = GoogleSignIn();
+  FaceBookModel? faceBookModel;
+  final GetStorage authBox = GetStorage();
+  var isSignedIn = false;
 
   void visibility() {
     isVisibilty = !isVisibilty;
@@ -78,6 +83,8 @@ class AuthController extends GetxController {
           .then((value) {
         displayUserName = auth.currentUser!.displayName!;
       });
+      isSignedIn = true;
+      authBox.write("auth",isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     } on FirebaseAuthException catch (error) {
@@ -146,6 +153,8 @@ class AuthController extends GetxController {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       displayUserName = googleUser!.displayName!;
       displayUserImage = googleUser.photoUrl!;
+      isSignedIn = true;
+      authBox.write("auth",isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     } catch (error) {
@@ -161,8 +170,35 @@ class AuthController extends GetxController {
 
   void facebookSignUpUsingFirebase() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
-    FacebookAuth.instance.getUserData();
+    if (loginResult.status == LoginStatus.success) {
+      final data = await FacebookAuth.instance.getUserData();
+      faceBookModel = FaceBookModel.fromJson(data);
+      isSignedIn = true;
+      authBox.write("auth",isSignedIn);
+      update();
+      Get.offNamed(Routes.mainScreen);
+    }
   }
 
-  void signOutFirebase() async {}
+  void signOutFromApp() async {
+    try {
+      await auth.signOut();
+      await googleSignIn.signOut();
+      await FacebookAuth.i.logOut();
+      displayUserName = '';
+      displayUserImage = '';
+      isSignedIn = false;
+      authBox.remove('auth');
+      update();
+      Get.offNamed(Routes.welcomeScreen);
+    } catch (error) {
+      Get.snackbar(
+        "Error!",
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: greenColor,
+        colorText: Colors.white,
+      );
+    }
+  }
 }
