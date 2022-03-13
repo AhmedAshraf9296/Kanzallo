@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
-import 'package:kanzalloshop/logic/bindings/theme_controller.dart';
+import 'package:kanzalloshop/logic/Controller/theme_controller.dart';
 import 'package:kanzalloshop/routes/routes.dart';
 
 void main() async {

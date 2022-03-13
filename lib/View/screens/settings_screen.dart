@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 import 'package:kanzalloshop/logic/Controller/auth_controller.dart';
-import 'package:kanzalloshop/logic/bindings/theme_controller.dart';
+import 'package:kanzalloshop/logic/Controller/theme_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);

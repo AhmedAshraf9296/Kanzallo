@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 import 'package:kanzalloshop/logic/Controller/main_controller.dart';
+import 'package:kanzalloshop/routes/routes.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class MainScreen extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
-
+                  Get.toNamed(Routes.cartScreen);
                 },
                 icon: Image.asset("assets/images/shop.png"),
               ),
@@ -84,6 +85,7 @@ class MainScreen extends StatelessWidget {
           ),
           body: IndexedStack(
             index: controller.currentIndex.value,
+            // ignore: invalid_use_of_protected_member
             children: controller.tabs.value,
           ),
         );

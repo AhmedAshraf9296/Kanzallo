@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kanzalloshop/View/widgets/home/card_items.dart';
 import 'package:kanzalloshop/View/widgets/text_utils.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Get.isDarkMode?Colors.white:Colors.black,
       body: Column(
         children: [
           Container(
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 20,right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -39,12 +40,32 @@ class HomeScreen extends StatelessWidget {
                   ),
                   TextUtils("INSPIRATION", 28, FontWeight.bold, Colors.white,
                       TextDecoration.none),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   SearchFormText(),
                 ],
               ),
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: TextUtils(
+                "Categories",
+                20,
+                FontWeight.w500,
+                Get.isDarkMode? Colors.black:Colors.white,
+                TextDecoration.none,
+              ),
+            ),
+          ),
+          const SizedBox(height: 30,),
+           CardItems(),
         ],
       ),
     ));
