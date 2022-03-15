@@ -7,6 +7,7 @@ class ProductServices {
     var response = await http.get(Uri.parse('$baseUrl/products.json'));
     if(response.statusCode == 200){
       var jsonData = response.body;
+      // var data = List<Map<String, ProductsModel>>.from(jsonDecode(response.body));
       return productsModelFromJson(jsonData);
     }
     else{

@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kanzalloshop/Model/products_model.dart';
@@ -8,9 +9,7 @@ class ProductsController extends GetxController {
   var favoriteList = <ProductsModel>[].obs;
   var isLoading = true.obs;
   var storage = GetStorage();
-
   // var isFavorites = false.obs;
-
   @override
   void onInit() {
     super.onInit();
@@ -23,7 +22,7 @@ class ProductsController extends GetxController {
     getProducts();
   }
 
-  getProducts() async {
+   getProducts() async {
     var products = await ProductServices.getProduct();
     try {
       isLoading(true);

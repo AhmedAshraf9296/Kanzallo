@@ -19,6 +19,14 @@ class CartController extends GetxController {
   void addProductToCart(ProductsModel productsModel) {
     if (productsMap.containsKey(productsModel)) {
       productsMap[productsModel] += 1;
+      Get.snackbar(
+        "",
+        "Product Added Successfully to Cart",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: mainColor,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 1)
+      );
     } else {
       productsMap[productsModel] = 1;
     }
@@ -37,27 +45,46 @@ class CartController extends GetxController {
     productsMap.removeWhere((key, value) => key == productsModel);
   }
 
-  void clearAllProductsinCart() {
+  void clearAllProductsInCart() {
     Get.defaultDialog(
-        title: "Clean your Cart",
-        titleStyle: const TextStyle(
-            fontSize: 13, color: Colors.black, fontWeight: FontWeight.bold),
-        middleText: "Are you sure to clear your cart ?",
-        middleTextStyle: const TextStyle(
-            fontSize: 13, color: Colors.black, fontWeight: FontWeight.bold),
-        backgroundColor: Colors.grey.shade300,
-        radius: 10,
-        textCancel: "No ",
-        cancelTextColor: Colors.black,
-        textConfirm: "Yes",
-        confirmTextColor: Colors.black,
-        onCancel: () {
-          Get.toNamed(Routes.cartScreen);
-        },
-        onConfirm: () {
-          productsMap.clear();
-          Get.back();
-        },
-        buttonColor: Get.isDarkMode ? greenColor : Colors.pinkAccent.shade200);
+      title: "Clean your Cart",
+      titleStyle: const TextStyle(
+        fontSize: 13,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+      middleText: "Are you sure to clear your cart ?",
+      middleTextStyle: const TextStyle(
+        fontSize: 13,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+      backgroundColor: Colors.grey.shade300,
+      radius: 10,
+      textCancel: "No ",
+      cancelTextColor: Colors.black,
+      textConfirm: "Yes",
+      confirmTextColor: Colors.black,
+      onCancel: () {
+        Get.toNamed(Routes.cartScreen);
+      },
+      onConfirm: () {
+        productsMap.clear();
+        Get.back();
+      },
+      buttonColor: Get.isDarkMode ? greenColor : Colors.pinkAccent.shade200,
+    );
+  }
+
+  int quantity() {
+    if(productsMap.isEmpty){
+      return 0;
+    }
+    else{
+      return productsMap.entries
+          .map((e) => e.value)
+          .toList()
+          .reduce((value, element) => value + element);
+    }
   }
 }

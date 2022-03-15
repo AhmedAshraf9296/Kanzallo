@@ -23,7 +23,7 @@ class CartScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    controller.clearAllProductsinCart();
+                    controller.clearAllProductsInCart();
                   },
                   icon: const Icon(
                     Icons.backspace,

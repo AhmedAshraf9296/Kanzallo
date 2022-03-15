@@ -2,6 +2,11 @@
 // import 'package:meta/meta.dart';
 import 'dart:convert';
 
+
+// Map<String, ProductsModel> productsModelFromJson(String str) => Map.from(json.decode(str)).map((k, v) => MapEntry<String, ProductsModel>(k, ProductsModel.fromJson(v)));
+//
+// String productsModelToJson(Map<String, ProductsModel> data) => json.encode(Map.from(data).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())));
+
 List<ProductsModel> productsModelFromJson(String str) => List<ProductsModel>.from(json.decode(str).map((x) => ProductsModel.fromJson(x)));
 
 String productsModelToJson(List<ProductsModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
