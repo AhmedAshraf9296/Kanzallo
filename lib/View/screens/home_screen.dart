@@ -32,15 +32,15 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  TextUtils("Find Your", 25, FontWeight.bold, Colors.white,
+                children:  [
+                  const TextUtils("Find Your", 25, FontWeight.bold, Colors.white,
                       TextDecoration.none),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  TextUtils("INSPIRATION", 28, FontWeight.bold, Colors.white,
+                  const TextUtils("INSPIRATION", 28, FontWeight.bold, Colors.white,
                       TextDecoration.none),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SearchFormText(),

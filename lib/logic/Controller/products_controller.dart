@@ -1,4 +1,4 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kanzalloshop/Model/products_model.dart';
@@ -9,7 +9,11 @@ class ProductsController extends GetxController {
   var favoriteList = <ProductsModel>[].obs;
   var isLoading = true.obs;
   var storage = GetStorage();
-  // var isFavorites = false.obs;
+
+// Search
+  var searchList = <ProductsModel>[].obs;
+  TextEditingController searchTextController = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -22,7 +26,7 @@ class ProductsController extends GetxController {
     getProducts();
   }
 
-   getProducts() async {
+  getProducts() async {
     var products = await ProductServices.getProduct();
     try {
       isLoading(true);
@@ -50,9 +54,23 @@ class ProductsController extends GetxController {
   bool isFavorites(int productId) {
     return favoriteList.any((element) => element.id == productId);
   }
-//Logic for favorite screen
-//
-// void addFavorites() {
-//   isFavorites.value = !isFavorites.value;
-// }
+
+  //Search Bar Logic
+
+  void addSearchToList(String searchName) {
+    searchName = searchName.toLowerCase();
+
+    searchList.value = productList.where((search) {
+      var searchTitle = search.title.toLowerCase();
+      var searchPrice = search.price.toString();
+      return searchTitle.contains(searchName) ||
+          searchPrice.toString().contains(searchName);
+    }).toList();
+    update();
+  }
+
+  void clearSearch() {
+    searchTextController.clear();
+    addSearchToList("");
+  }
 }

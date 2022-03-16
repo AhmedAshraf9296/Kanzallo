@@ -38,11 +38,10 @@ class FavoriteScreen extends StatelessWidget {
             return ListView.separated(
                 itemBuilder: (context, index) {
                   return buildFavoriteItems(
-                    image: controller.favoriteList[index].image,
-                    price: controller.favoriteList[index].price,
-                    title: controller.favoriteList[index].title,
-                    productId: controller.favoriteList[index].id
-                  );
+                      image: controller.favoriteList[index].image,
+                      price: controller.favoriteList[index].price,
+                      title: controller.favoriteList[index].title,
+                      productId: controller.favoriteList[index].id);
                 },
                 separatorBuilder: (context, index) {
                   return const Divider(
@@ -55,12 +54,11 @@ class FavoriteScreen extends StatelessWidget {
         }));
   }
 
-  Widget buildFavoriteItems({
-    required String image,
-    required double price,
-    required String title,
-    required int productId
-  }) {
+  Widget buildFavoriteItems(
+      {required String image,
+      required double price,
+      required String title,
+      required int productId}) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: SizedBox(
@@ -116,14 +114,15 @@ class FavoriteScreen extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-                onPressed: () {
-                  controller.manageFavorites(productId);
-                },
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                  size: 30,
-                ))
+              onPressed: () {
+                controller.manageFavorites(productId);
+              },
+              icon: const Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 30,
+              ),
+            )
           ],
         ),
       ),

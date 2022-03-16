@@ -5,6 +5,7 @@ import 'package:kanzalloshop/View/widgets/theme.dart';
 import 'package:kanzalloshop/routes/routes.dart';
 
 class CartController extends GetxController {
+
   var productsMap = {}.obs;
 
   get productSubTotal =>
@@ -19,15 +20,15 @@ class CartController extends GetxController {
   void addProductToCart(ProductsModel productsModel) {
     if (productsMap.containsKey(productsModel)) {
       productsMap[productsModel] += 1;
-      Get.snackbar(
-        "",
-        "Product Added Successfully to Cart",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: mainColor,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 1)
-      );
     } else {
+      Get.snackbar(
+          "",
+          "Product Added Successfully to Cart",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: mainColor,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 1)
+      );
       productsMap[productsModel] = 1;
     }
   }
@@ -87,4 +88,5 @@ class CartController extends GetxController {
           .reduce((value, element) => value + element);
     }
   }
+
 }
