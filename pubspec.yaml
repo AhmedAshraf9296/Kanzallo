@@ -30,6 +30,11 @@ dependencies:
 #  flutter_simple_rating_bar: ^0.0.3
   flutter_rating_bar: ^4.0.0
   readmore: ^2.1.0
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+  firebase_messaging: ^11.2.11
+  overlay_support: ^1.2.1
+  awesome_notifications: ^0.6.21
 
 
 

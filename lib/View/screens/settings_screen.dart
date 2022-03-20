@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/settings/dark_mode_widget.dart';
+import 'package:kanzalloshop/View/widgets/settings/languages_widget.dart';
 import 'package:kanzalloshop/View/widgets/settings/logout_widget.dart';
 import 'package:kanzalloshop/View/widgets/settings/profile_image_widget.dart';
 import 'package:kanzalloshop/View/widgets/text_utils.dart';
@@ -31,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
             height: 20,
           ),
           TextUtils(
-            "GENERAL",
+            "GENERAL".tr,
             18,
             FontWeight.bold,
             Get.isDarkMode ? mainColor : Colors.white,
@@ -44,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          // LanguageWidget(),
+          LanguageWidget(),
           const SizedBox(
             height: 20,
           ),

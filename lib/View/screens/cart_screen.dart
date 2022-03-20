@@ -14,56 +14,60 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text("Cart Items"),
-              elevation: 0,
-              centerTitle: true,
-              backgroundColor: Get.isDarkMode ? Colors.black : mainColor,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    controller.clearAllProductsInCart();
-                  },
-                  icon: const Icon(
-                    Icons.backspace,
-                  ),
-                ),
-              ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Cart Items"),
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Get.isDarkMode ? Colors.black : mainColor,
+          actions: [
+            IconButton(
+              onPressed: () {
+                controller.clearAllProductsInCart();
+              },
+              icon: const Icon(
+                Icons.backspace,
+              ),
             ),
-            body: Obx(() {
-              if (controller.productsMap.isEmpty) {
-                return const EmptyCart();
-              } else {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 600,
-                        child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            return CartProduct(
-                              quantity:
-                                  controller.productsMap.values.toList()[index],
-                              index: index,
-                              productsModel:
-                                  controller.productsMap.keys.toList()[index],
-                            );
-                          },
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 20,
-                          ),
-                          itemCount: controller.productsMap.length,
+          ],
+        ),
+        body: Obx(
+          () {
+            if (controller.productsMap.isEmpty) {
+              return const EmptyCart();
+            } else {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 600,
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return CartProduct(
+                            quantity:
+                                controller.productsMap.values.toList()[index],
+                            index: index,
+                            productsModel:
+                                controller.productsMap.keys.toList()[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 20,
                         ),
+                        itemCount: controller.productsMap.length,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
-                        child: CartTotal(),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            })));
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: CartTotal(),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
   }
 }

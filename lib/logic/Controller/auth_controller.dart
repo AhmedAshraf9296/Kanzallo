@@ -13,12 +13,27 @@ class AuthController extends GetxController {
   bool isVisibilty = false;
   bool isCheckBox = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-  var displayUserName = '';
-  var displayUserImage = '';
+  var displayUserName = ''.obs;
+  var displayUserImage = ''.obs;
+  var displayUserEmail = ''.obs;
+
   var googleSignIn = GoogleSignIn();
   FaceBookModel? faceBookModel;
   final GetStorage authBox = GetStorage();
   var isSignedIn = false;
+
+  User? get userProfile => auth.currentUser;
+
+  @override
+  void onInit() {
+    super.onInit();
+    displayUserName.value =
+        (userProfile != null ? userProfile!.displayName : "")!;
+    displayUserEmail.value =
+    (userProfile != null ? userProfile!.email : "")!;
+    displayUserImage.value =
+    (userProfile != null ? userProfile!.photoURL : "")!;
+  }
 
   void visibility() {
     isVisibilty = !isVisibilty;
@@ -38,8 +53,8 @@ class AuthController extends GetxController {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        displayUserName = userName;
-        auth.currentUser!.updateDisplayName(displayUserName);
+        displayUserName.value = userName;
+        auth.currentUser!.updateDisplayName(displayUserName.value);
       });
       update();
       Get.offNamed(Routes.mainScreen);
@@ -81,10 +96,10 @@ class AuthController extends GetxController {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        displayUserName = auth.currentUser!.displayName!;
+        displayUserName.value = auth.currentUser!.displayName!;
       });
       isSignedIn = true;
-      authBox.write("auth",isSignedIn);
+      authBox.write("auth", isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     } on FirebaseAuthException catch (error) {
@@ -151,10 +166,20 @@ class AuthController extends GetxController {
   void googleSignUpUsingFirebase() async {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      displayUserName = googleUser!.displayName!;
-      displayUserImage = googleUser.photoUrl!;
+      displayUserName.value = googleUser!.displayName!;
+      displayUserImage.value = googleUser.photoUrl!;
+      displayUserEmail.value = googleUser.email;
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+
+      await auth.signInWithCredential(credential);
+
       isSignedIn = true;
-      authBox.write("auth",isSignedIn);
+      authBox.write("auth", isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     } catch (error) {
@@ -174,7 +199,7 @@ class AuthController extends GetxController {
       final data = await FacebookAuth.instance.getUserData();
       faceBookModel = FaceBookModel.fromJson(data);
       isSignedIn = true;
-      authBox.write("auth",isSignedIn);
+      authBox.write("auth", isSignedIn);
       update();
       Get.offNamed(Routes.mainScreen);
     }
@@ -185,8 +210,9 @@ class AuthController extends GetxController {
       await auth.signOut();
       await googleSignIn.signOut();
       await FacebookAuth.i.logOut();
-      displayUserName = '';
-      displayUserImage = '';
+      displayUserName.value = '';
+      displayUserImage.value = '';
+      displayUserEmail.value = '';
       isSignedIn = false;
       authBox.remove('auth');
       update();

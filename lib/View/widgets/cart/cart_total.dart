@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kanzalloshop/View/widgets/text_utils.dart';
 import 'package:kanzalloshop/View/widgets/theme.dart';
 import 'package:kanzalloshop/logic/Controller/cart_controller.dart';
+import 'package:kanzalloshop/routes/routes.dart';
 
 class CartTotal extends StatelessWidget {
   final controller = Get.find<CartController>();
@@ -49,7 +50,9 @@ class CartTotal extends StatelessWidget {
                       ),
                       elevation: 0,
                       primary: Get.isDarkMode ? greenColor : mainColor),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.paymentScreen);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [

@@ -4,6 +4,7 @@ import 'package:kanzalloshop/View/screens/auth/login_screen.dart';
 import 'package:kanzalloshop/View/screens/auth/signup_screen.dart';
 import 'package:kanzalloshop/View/screens/cart_screen.dart';
 import 'package:kanzalloshop/View/screens/main_screen.dart';
+import 'package:kanzalloshop/View/screens/payment_screen.dart';
 import 'package:kanzalloshop/View/screens/welcome_screen.dart';
 import 'package:kanzalloshop/logic/bindings/auth_binding.dart';
 import 'package:kanzalloshop/logic/bindings/main_binding.dart';
@@ -44,6 +45,14 @@ class AppRoutes {
           ProductBinding(),
 
         ]),
+    GetPage(
+        name: Routes.paymentScreen,
+        page: () => PaymentScreen(),
+        bindings: [
+          AuthBinding(),
+          ProductBinding(),
+          MainBinding(),
+        ]),
   ];
 }
 
@@ -54,4 +63,5 @@ class Routes {
   static const forgotPasswordScreen = '/forgotPassword';
   static const mainScreen = '/mainScreen';
   static const cartScreen = '/cartScreen';
+  static const paymentScreen = '/PaymentScreen';
 }
