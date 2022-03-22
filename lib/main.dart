@@ -16,13 +16,11 @@ Future<void> _messageHandler(RemoteMessage message) async {
   // print('background message ${message.notification!.body}');
 }
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AwesomeNotifications().initialize(
       'resource://drawable/notification_icon',
-      [            // notification icon
+      [ // notification icon
         NotificationChannel(
           channelGroupKey: 'basic_test',
           channelKey: 'basic',
